@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="600" viewBox="0 0 300 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A237E"/>
+      <stop offset="100%" style="stop-color:#7C4DFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="600" fill="url(#bg)"/>
+  <!-- Title -->
+  <text x="150" y="180" fill="white" font-family="Arial, sans-serif" font-size="48" font-weight="300" text-anchor="middle" letter-spacing="8">SKY</text>
+  <text x="150" y="240" fill="#FFD740" font-family="Arial, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" letter-spacing="4">TAPS</text>
+  <text x="150" y="280" fill="rgba(255,255,255,0.7)" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Tap the falling shapes!</text>
+  <!-- Play Button -->
+  <rect x="75" y="350" width="150" height="50" rx="25" fill="#7C4DFF"/>
+  <text x="150" y="382" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">PLAY</text>
+  <!-- Settings Button -->
+  <rect x="75" y="420" width="150" height="50" rx="25" fill="transparent" stroke="#4ECDC4" stroke-width="2"/>
+  <text x="150" y="452" fill="#4ECDC4" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">SETTINGS</text>
+  <!-- Version -->
+  <text x="150" y="570" fill="rgba(255,255,255,0.3)" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">v1.0.0</text>
+</svg>

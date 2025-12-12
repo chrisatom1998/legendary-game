@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="600" viewBox="0 0 300 600">
+  <rect width="300" height="600" fill="#1A1A2E"/>
+  <!-- Header -->
+  <text x="150" y="50" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" letter-spacing="2">SETTINGS</text>
+  <!-- Back arrow -->
+  <text x="30" y="50" fill="white" font-family="Arial, sans-serif" font-size="24">&lt;</text>
+  <!-- Audio Section -->
+  <text x="30" y="110" fill="rgba(124,77,255,0.8)" font-family="Arial, sans-serif" font-size="12" font-weight="bold" letter-spacing="1">AUDIO</text>
+  <!-- Audio Container -->
+  <rect x="15" y="125" width="270" height="120" rx="16" fill="#16213E"/>
+  <!-- Sound Effects -->
+  <rect x="30" y="140" width="35" height="35" rx="8" fill="rgba(124,77,255,0.2)"/>
+  <text x="47" y="163" fill="#7C4DFF" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">🔊</text>
+  <text x="80" y="155" fill="white" font-family="Arial, sans-serif" font-size="14">Sound Effects</text>
+  <text x="80" y="172" fill="rgba(255,255,255,0.5)" font-family="Arial, sans-serif" font-size="10">Play sounds when tapping</text>
+  <!-- Toggle On -->
+  <rect x="225" y="148" width="45" height="24" rx="12" fill="#7C4DFF"/>
+  <circle cx="258" cy="160" r="10" fill="white"/>
+  <!-- Music -->
+  <rect x="30" y="195" width="35" height="35" rx="8" fill="rgba(124,77,255,0.2)"/>
+  <text x="47" y="218" fill="#7C4DFF" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">🎵</text>
+  <text x="80" y="210" fill="white" font-family="Arial, sans-serif" font-size="14">Background Music</text>
+  <text x="80" y="227" fill="rgba(255,255,255,0.5)" font-family="Arial, sans-serif" font-size="10">Play music during gameplay</text>
+  <!-- Toggle Off -->
+  <rect x="225" y="203" width="45" height="24" rx="12" fill="#4A4A4A"/>
+  <circle cx="237" cy="215" r="10" fill="white"/>
+  <!-- About Section -->
+  <text x="30" y="290" fill="rgba(124,77,255,0.8)" font-family="Arial, sans-serif" font-size="12" font-weight="bold" letter-spacing="1">ABOUT</text>
+  <!-- About Container -->
+  <rect x="15" y="305" width="270" height="120" rx="16" fill="#16213E"/>
+  <!-- App Info -->
+  <rect x="30" y="320" width="35" height="35" rx="8" fill="rgba(124,77,255,0.2)"/>
+  <text x="47" y="343" fill="#7C4DFF" font-family="Arial, sans-serif" font-size="18" text-anchor="middle">ℹ</text>
+  <text x="80" y="335" fill="white" font-family="Arial, sans-serif" font-size="14">Sky Taps</text>
+  <text x="80" y="352" fill="rgba(255,255,255,0.5)" font-family="Arial, sans-serif" font-size="10">Version 1.0.0</text>
+  <!-- Flutter Info -->
+  <rect x="30" y="375" width="35" height="35" rx="8" fill="rgba(124,77,255,0.2)"/>
+  <text x="47" y="398" fill="#7C4DFF" font-family="Arial, sans-serif" font-size="18" text-anchor="middle">&lt;/&gt;</text>
+  <text x="80" y="390" fill="white" font-family="Arial, sans-serif" font-size="14">Made with Flutter</text>
+  <text x="80" y="407" fill="rgba(255,255,255,0.5)" font-family="Arial, sans-serif" font-size="10">Cross-platform mobile game</text>
+</svg>
