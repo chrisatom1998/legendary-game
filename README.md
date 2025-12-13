@@ -116,6 +116,119 @@ lib/
 flutter test
 ```
 
+## Building and Running in Android Studio
+
+### Prerequisites for Android Development
+
+1. **Android Studio** - Download and install from [developer.android.com](https://developer.android.com/studio)
+2. **Flutter Plugin** - Install via Android Studio:
+   - Open Android Studio → Settings/Preferences → Plugins
+   - Search for "Flutter" and install it (this will also install the Dart plugin)
+   - Restart Android Studio
+3. **Android SDK** - Installed automatically with Android Studio
+4. **Flutter SDK** - Ensure Flutter is in your system PATH
+
+### Opening the Project in Android Studio
+
+1. Launch Android Studio
+2. Select **File → Open**
+3. Navigate to the `legendary-game` folder and click **OK**
+4. Wait for the project to sync and index (this may take a few minutes on first open)
+5. If prompted, click **Get dependencies** or run `flutter pub get` in the terminal
+
+### Setting Up an Android Emulator
+
+1. Open **Tools → Device Manager** (or click the device manager icon in the toolbar)
+2. Click **Create Device**
+3. Select a device definition (e.g., Pixel 6) and click **Next**
+4. Select a system image:
+   - Choose a recent API level (API 33 or higher recommended)
+   - Click **Download** if the image isn't already installed
+   - Click **Next** after download completes
+5. Configure emulator settings (defaults are usually fine) and click **Finish**
+6. Click the **Play** button next to your new emulator to start it
+
+### Running on an Emulator
+
+1. Ensure your emulator is running (visible in Device Manager with a green dot)
+2. Select the emulator from the device dropdown in the toolbar
+3. Click the **Run** button (green play icon) or press `Shift+F10`
+4. Wait for the build to complete and the app to launch
+
+Alternatively, use the terminal:
+```bash
+# List available emulators
+flutter emulators
+
+# Launch an emulator
+flutter emulators --launch <emulator_name>
+
+# Run the app
+flutter run
+```
+
+### Running on a Physical Android Device
+
+1. **Enable Developer Options on your device:**
+   - Go to **Settings → About Phone**
+   - Tap **Build Number** 7 times until you see "You are now a developer"
+
+2. **Enable USB Debugging:**
+   - Go to **Settings → Developer Options**
+   - Enable **USB Debugging**
+
+3. **Connect your device:**
+   - Connect your device to your computer via USB
+   - Accept the "Allow USB debugging" prompt on your device
+   - Check "Always allow from this computer" for convenience
+
+4. **Verify device connection:**
+   ```bash
+   flutter devices
+   ```
+   Your device should appear in the list
+
+5. **Run the app:**
+   - Select your device from the device dropdown in Android Studio
+   - Click the **Run** button or press `Shift+F10`
+
+   Or via terminal:
+   ```bash
+   flutter run -d <device_id>
+   ```
+
+### Building a Release APK
+
+To build a release APK for distribution:
+
+```bash
+# Build release APK
+flutter build apk --release
+
+# The APK will be located at:
+# build/app/outputs/flutter-apk/app-release.apk
+```
+
+To build an App Bundle for Google Play Store:
+
+```bash
+# Build release App Bundle
+flutter build appbundle --release
+
+# The bundle will be located at:
+# build/app/outputs/bundle/release/app-release.aab
+```
+
+### Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Device not detected | Ensure USB debugging is enabled and try a different USB cable/port |
+| Emulator won't start | Check that virtualization is enabled in BIOS (Intel VT-x or AMD-V) |
+| Build fails | Run `flutter clean` then `flutter pub get` and try again |
+| Gradle sync issues | File → Invalidate Caches → Invalidate and Restart |
+| SDK not found | Run `flutter doctor` and follow the recommendations |
+
 ## Technologies Used
 
 - **Flutter** - UI framework
