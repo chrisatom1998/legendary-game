@@ -1,14 +1,14 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 import '../../game/game.dart';
 import '../../models/models.dart';
 import '../../services/services.dart';
+import '../theme/theme.dart';
 import '../widgets/widgets.dart';
 
 /// The main game screen where gameplay happens.
+/// Features premium graphics, particle effects, and smooth animations.
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
 
@@ -30,9 +30,16 @@ class _GameScreenState extends State<GameScreen>
   final List<PointsPopupData> _popups = [];
   int _popupIdCounter = 0;
 
+  // Explosion particles management
+  final List<ExplosionData> _explosions = [];
+  int _explosionIdCounter = 0;
+
   // Track if this is a new high score
   bool _isNewHighScore = false;
   int _previousHighScore = 0;
+
+  // Current combo count for display
+  int _currentCombo = 0;
 
   @override
   void initState() {
@@ -53,17 +60,38 @@ class _GameScreenState extends State<GameScreen>
   void _setupCallbacks() {
     _engine.onScore = (points, position) {
       _audioService.playTapSound();
+      _currentCombo++;
+
+      // Find the object that was just destroyed to get its color
+      Color explosionColor = AppColors.primary;
+      for (final obj in _engine.state.objects) {
+        if (obj.isDestroyed && obj.destroyProgress < 0.1) {
+          explosionColor = AppColors.getObjectColor(obj.colorIndex);
+          break;
+        }
+      }
+
       setState(() {
+        // Add points popup with combo info
         _popups.add(PointsPopupData(
           id: _popupIdCounter++,
           points: points,
           position: position,
+          combo: _currentCombo,
+        ));
+
+        // Add explosion particles
+        _explosions.add(ExplosionData(
+          id: _explosionIdCounter++,
+          position: position,
+          color: explosionColor,
         ));
       });
     };
 
     _engine.onLifeLost = (remainingLives) {
       _audioService.playMissSound();
+      _currentCombo = 0; // Reset combo on miss
     };
 
     _engine.onGameOver = (finalScore, highScore) {
@@ -80,6 +108,7 @@ class _GameScreenState extends State<GameScreen>
     _ticker = createTicker(_onTick);
     _ticker.start();
     _lastElapsed = Duration.zero;
+    _currentCombo = 0;
   }
 
   void _onTick(Duration elapsed) {
@@ -100,6 +129,8 @@ class _GameScreenState extends State<GameScreen>
   void _playAgain() {
     _isNewHighScore = false;
     _previousHighScore = _engine.state.highScore;
+    _popups.clear();
+    _explosions.clear();
     _startGame();
   }
 
@@ -110,6 +141,12 @@ class _GameScreenState extends State<GameScreen>
   void _removePopup(int id) {
     setState(() {
       _popups.removeWhere((p) => p.id == id);
+    });
+  }
+
+  void _removeExplosion(int id) {
+    setState(() {
+      _explosions.removeWhere((e) => e.id == id);
     });
   }
 
@@ -126,7 +163,6 @@ class _GameScreenState extends State<GameScreen>
       canPop: !_engine.state.isPlaying,
       onPopInvokedWithResult: (didPop, result) {
         if (!didPop && _engine.state.isPlaying) {
-          // Could show a pause menu here
           _goToMainMenu();
         }
       },
@@ -151,13 +187,23 @@ class _GameScreenState extends State<GameScreen>
                     lives: _engine.state.lives,
                     maxLives: _engine.state.maxLives,
                     highScore: _engine.state.highScore,
+                    combo: _currentCombo,
                   ),
+
+                // Explosion particles
+                ..._explosions.map((explosion) => ExplosionParticles(
+                      key: ValueKey('explosion_${explosion.id}'),
+                      position: explosion.position,
+                      color: explosion.color,
+                      onComplete: () => _removeExplosion(explosion.id),
+                    )),
 
                 // Points popups
                 ..._popups.map((popup) => PointsPopup(
-                      key: ValueKey(popup.id),
+                      key: ValueKey('popup_${popup.id}'),
                       points: popup.points,
                       position: popup.position,
+                      combo: popup.combo,
                       onComplete: () => _removePopup(popup.id),
                     )),
 

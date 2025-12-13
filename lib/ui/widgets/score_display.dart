@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/theme.dart';
 
-/// Displays the current score with optional label.
+/// Premium score display with animated counter effect.
 class ScoreDisplay extends StatelessWidget {
   final int score;
   final String label;
@@ -22,13 +22,50 @@ class ScoreDisplay extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (showLabel)
-          Text(
-            label,
-            style: AppTextStyles.scoreLabel,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.stars_rounded,
+                size: 14,
+                color: AppColors.accent.withValues(alpha: 0.8),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textSecondary,
+                  letterSpacing: 1.5,
+                ),
+              ),
+            ],
           ),
-        Text(
-          score.toString().padLeft(6, '0'),
-          style: AppTextStyles.score,
+        const SizedBox(height: 4),
+        ShaderMask(
+          shaderCallback: (bounds) => const LinearGradient(
+            colors: [Colors.white, AppColors.textSecondary],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ).createShader(bounds),
+          child: Text(
+            score.toString().padLeft(6, '0'),
+            style: const TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: 2,
+              fontFeatures: [FontFeature.tabularFigures()],
+              shadows: [
+                Shadow(
+                  color: Colors.black26,
+                  blurRadius: 4,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );
