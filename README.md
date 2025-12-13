@@ -59,6 +59,7 @@ lib/
 │   ├── game_state.dart    # Game state management
 │   └── models.dart        # Model exports
 ├── services/
+│   ├── ad_service.dart      # AdMob advertisement management
 │   ├── audio_service.dart    # Sound playback
 │   ├── score_service.dart    # High score persistence
 │   ├── settings_service.dart # Settings persistence
@@ -234,7 +235,29 @@ flutter build appbundle --release
 - **Flutter** - UI framework
 - **Dart** - Programming language
 - **shared_preferences** - Local storage for high scores and settings
+- **google_mobile_ads** - AdMob advertisement integration
 - **CustomPaint** - Hardware-accelerated shape and particle rendering
+
+## Advertisement Integration
+
+Sky Taps includes AdMob advertisement support with three ad types:
+
+| Ad Type | Location | Description |
+|---------|----------|-------------|
+| Banner | Main Menu | Displayed at the bottom of the menu screen |
+| Interstitial | Game Over | Shows every 2 games when clicking "Play Again" |
+| Rewarded Video | Game Over | Optional - watch to earn +50 bonus points |
+
+### Setting Up Ads
+
+For detailed instructions on configuring AdMob for Android and iOS, see **[ADMOB_SETUP.md](ADMOB_SETUP.md)**.
+
+The implementation uses test ad units by default for development. Before releasing, you'll need to:
+
+1. Create an AdMob account and register your app
+2. Create ad units for each ad type
+3. Add your AdMob App ID to platform configuration files
+4. Replace test ad unit IDs with your production IDs in `lib/services/ad_service.dart`
 
 ## Color Palette
 
