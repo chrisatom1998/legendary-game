@@ -2,7 +2,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../../services/services.dart';
 import '../theme/theme.dart';
 import '../widgets/widgets.dart';
 import 'game_screen.dart';
@@ -27,6 +29,8 @@ class _MainMenuScreenState extends State<MainMenuScreen>
   late Animation<double> _titleOpacity;
   late Animation<Offset> _subtitleSlide;
   late Animation<double> _buttonOpacity;
+
+  final AdService _adService = AdService();
 
   @override
   void initState() {
@@ -122,6 +126,8 @@ class _MainMenuScreenState extends State<MainMenuScreen>
                     // Version info
                     _buildVersionInfo(),
                     const SizedBox(height: 16),
+                    // Banner Ad
+                    _buildBannerAd(),
                   ],
                 ),
               ),
@@ -129,6 +135,19 @@ class _MainMenuScreenState extends State<MainMenuScreen>
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildBannerAd() {
+    final adWidget = _adService.getBannerAdWidget();
+    if (adWidget == null) {
+      return const SizedBox(height: 50);
+    }
+    return Container(
+      alignment: Alignment.center,
+      width: _adService.bannerAdSize.width.toDouble(),
+      height: _adService.bannerAdSize.height.toDouble(),
+      child: adWidget,
     );
   }
 

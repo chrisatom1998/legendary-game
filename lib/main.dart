@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'services/services.dart';
 import 'ui/screens/screens.dart';
 import 'ui/theme/theme.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Lock to portrait orientation
@@ -15,6 +16,9 @@ void main() {
 
   // Set system UI style
   SystemChrome.setSystemUIOverlayStyle(AppTheme.gameOverlayStyle);
+
+  // Initialize AdMob
+  await AdService().initialize();
 
   runApp(const SkyTapsApp());
 }

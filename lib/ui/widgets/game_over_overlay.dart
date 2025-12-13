@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import '../../services/services.dart';
 import '../theme/theme.dart';
 import 'game_button.dart';
 
@@ -14,6 +15,7 @@ class GameOverOverlay extends StatefulWidget {
   final bool isNewHighScore;
   final VoidCallback? onPlayAgain;
   final VoidCallback? onMainMenu;
+  final void Function(int bonusPoints)? onBonusEarned;
 
   const GameOverOverlay({
     super.key,
@@ -22,6 +24,7 @@ class GameOverOverlay extends StatefulWidget {
     this.isNewHighScore = false,
     this.onPlayAgain,
     this.onMainMenu,
+    this.onBonusEarned,
   });
 
   @override
@@ -42,6 +45,9 @@ class _GameOverOverlayState extends State<GameOverOverlay>
 
   final List<_ConfettiParticle> _confetti = [];
   final _random = math.Random();
+
+  final AdService _adService = AdService();
+  bool _hasWatchedRewardedAd = false;
 
   @override
   void initState() {
@@ -210,7 +216,15 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                           opacity: _scaleScore.value,
                           child: _buildHighScoreIndicator(),
                         ),
-                        const SizedBox(height: 50),
+                        const SizedBox(height: 24),
+
+                        // Rewarded ad button
+                        if (_adService.isRewardedAdLoaded && !_hasWatchedRewardedAd)
+                          Opacity(
+                            opacity: _buttonsFade.value,
+                            child: _buildRewardedAdButton(),
+                          ),
+                        const SizedBox(height: 24),
 
                         // Buttons
                         Opacity(
@@ -240,6 +254,70 @@ class _GameOverOverlayState extends State<GameOverOverlay>
             ],
           ),
         );
+      },
+    );
+  }
+
+  Widget _buildRewardedAdButton() {
+    return GestureDetector(
+      onTap: _showRewardedAd,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              AppColors.secondary.withValues(alpha: 0.8),
+              AppColors.secondary.withValues(alpha: 0.6),
+            ],
+          ),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: AppColors.secondary.withValues(alpha: 0.5),
+            width: 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.secondary.withValues(alpha: 0.3),
+              blurRadius: 12,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.play_circle_filled_rounded,
+              color: Colors.white,
+              size: 24,
+            ),
+            const SizedBox(width: 10),
+            const Text(
+              'WATCH AD FOR +50 BONUS',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                letterSpacing: 0.5,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showRewardedAd() {
+    _adService.showRewardedAd(
+      onRewardEarned: (bonusPoints) {
+        setState(() {
+          _hasWatchedRewardedAd = true;
+        });
+        widget.onBonusEarned?.call(bonusPoints);
+      },
+      onAdNotAvailable: () {
+        // Ad not available, could show a snackbar
+        debugPrint('Rewarded ad not available');
       },
     );
   }
