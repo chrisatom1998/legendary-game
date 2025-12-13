@@ -25,6 +25,7 @@ class _GameScreenState extends State<GameScreen>
   // Services
   final ScoreService _scoreService = ScoreService();
   final AudioService _audioService = AudioService();
+  final AdService _adService = AdService();
 
   // Points popup management
   final List<PointsPopupData> _popups = [];
@@ -40,6 +41,9 @@ class _GameScreenState extends State<GameScreen>
 
   // Current combo count for display
   int _currentCombo = 0;
+
+  // Bonus points from rewarded ads
+  int _bonusScore = 0;
 
   @override
   void initState() {
@@ -127,11 +131,29 @@ class _GameScreenState extends State<GameScreen>
   }
 
   void _playAgain() {
-    _isNewHighScore = false;
-    _previousHighScore = _engine.state.highScore;
-    _popups.clear();
-    _explosions.clear();
-    _startGame();
+    // Show interstitial ad before starting new game
+    _adService.showInterstitialAd(
+      onClosed: () {
+        _isNewHighScore = false;
+        _previousHighScore = _engine.state.highScore;
+        _popups.clear();
+        _explosions.clear();
+        _bonusScore = 0;
+        _startGame();
+      },
+    );
+  }
+
+  void _handleBonusEarned(int bonusPoints) {
+    setState(() {
+      _bonusScore += bonusPoints;
+      // Add bonus to current score and potentially update high score
+      final newScore = _engine.state.score + _bonusScore;
+      if (newScore > _engine.state.highScore) {
+        _isNewHighScore = true;
+        _scoreService.saveHighScore(newScore);
+      }
+    });
   }
 
   void _goToMainMenu() {
@@ -210,11 +232,12 @@ class _GameScreenState extends State<GameScreen>
                 // Game over overlay
                 if (_engine.state.isGameOver)
                   GameOverOverlay(
-                    score: _engine.state.score,
+                    score: _engine.state.score + _bonusScore,
                     highScore: _engine.state.highScore,
                     isNewHighScore: _isNewHighScore,
                     onPlayAgain: _playAgain,
                     onMainMenu: _goToMainMenu,
+                    onBonusEarned: _handleBonusEarned,
                   ),
               ],
             );
