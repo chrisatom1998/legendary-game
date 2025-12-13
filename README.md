@@ -1,6 +1,6 @@
 # Sky Taps
 
-A simple, addictive tap-based mobile game built with Flutter where players tap falling shapes before they hit the bottom of the screen.
+A premium, visually stunning tap-based mobile game built with Flutter. Tap falling geometric shapes before they hit the bottom of the screen in this addictive arcade experience.
 
 ## Screenshots
 
@@ -16,15 +16,16 @@ A simple, addictive tap-based mobile game built with Flutter where players tap f
 
 ## Features
 
-- **Simple Gameplay**: Tap falling shapes before they reach the bottom
-- **Multiple Shape Types**: Circles, squares, triangles, diamonds, and hexagons
-- **Colorful Design**: Vibrant flat color palette with smooth gradients
-- **Combo System**: Score bonus points for quick successive taps
-- **Progressive Difficulty**: Game gets faster as you play
-- **High Score Tracking**: Persistent high score storage
-- **Lives System**: 3 lives per game
-- **Settings**: Toggle sound effects and background music
-- **Smooth Animations**: Points popup animations and destroy effects
+- **Premium Visual Design**: Modern glassmorphism UI with glow effects and smooth gradients
+- **Particle Effects**: Explosion particles when tapping shapes, animated starfield background
+- **7 Unique Shape Types**: Circles, squares, triangles, diamonds, stars, hexagons, and pentagons
+- **Neon Color Palette**: Vibrant colors with outer glow and inner highlights
+- **Combo System**: Build combos for score multipliers with visual feedback
+- **Progressive Difficulty**: Game speed increases as you play
+- **Animated UI**: Floating shapes on menu, pulsing buttons, smooth transitions
+- **High Score Tracking**: Persistent high score with celebration effects
+- **Lives System**: 3 lives with animated heart indicators
+- **Settings**: Toggle sound effects and background music with premium switches
 
 ## How to Play
 
@@ -72,14 +73,16 @@ lib/
     │   ├── app_text_styles.dart # Typography
     │   └── app_theme.dart       # Theme configuration
     └── widgets/
-        ├── game_button.dart      # Reusable button
-        ├── game_canvas.dart      # Game rendering surface
-        ├── game_hud.dart         # Score and lives display
-        ├── game_over_overlay.dart # End game screen
-        ├── game_painter.dart     # Custom shape rendering
-        ├── life_indicator.dart   # Heart icons
-        ├── points_popup.dart     # Score animation
-        └── score_display.dart    # Score text
+        ├── animated_background.dart # Starfield background
+        ├── game_button.dart         # Premium buttons
+        ├── game_canvas.dart         # Game rendering surface
+        ├── game_hud.dart            # Glassmorphism HUD
+        ├── game_over_overlay.dart   # Confetti celebration
+        ├── game_painter.dart        # Shape rendering with glow
+        ├── life_indicator.dart      # Animated hearts
+        ├── particle_system.dart     # Explosion effects
+        ├── points_popup.dart        # Combo-aware score popup
+        └── score_display.dart       # Gradient score text
 ```
 
 ## Getting Started
@@ -118,21 +121,38 @@ flutter test
 - **Flutter** - UI framework
 - **Dart** - Programming language
 - **shared_preferences** - Local storage for high scores and settings
+- **CustomPaint** - Hardware-accelerated shape and particle rendering
 
 ## Color Palette
 
-The game features a vibrant, modern color scheme:
+The game features a premium neon color palette with glow effects:
 
 | Color | Hex | Usage |
 |-------|-----|-------|
-| Deep Indigo | `#1A237E` | Background gradient top |
-| Purple | `#7C4DFF` | Background gradient bottom, buttons |
-| Gold | `#FFD740` | Accent, highlights |
-| Coral Red | `#FF6B6B` | Shape color, lives |
-| Teal | `#4ECDC4` | Shape color, secondary buttons |
-| Yellow | `#FFE66D` | Shape color |
-| Mint | `#95E1D3` | Shape color |
-| Plum | `#DDA0DD` | Shape color |
+| Neon Pink | `#FF6B9D` | Shape color with glow |
+| Neon Cyan | `#00F5D4` | Shape color, combo indicator |
+| Neon Gold | `#FFE55C` | Star shapes, points popup |
+| Neon Purple | `#9B5DE5` | Primary UI, hexagons |
+| Neon Blue | `#00BBF9` | Pentagon shapes, accents |
+| Neon Orange | `#FF9F1C` | Shape highlights |
+| Neon Lime | `#B8FF57` | Shape highlights |
+
+### Background Gradient
+
+| Layer | Colors |
+|-------|--------|
+| Top | `#0D0D1A` Deep Space |
+| Middle | `#1A1A3E` Midnight Blue |
+| Bottom | `#2D1B4E` Deep Purple |
+
+### UI Elements
+
+| Element | Style |
+|---------|-------|
+| Panels | Glassmorphism with blur and transparency |
+| Buttons | Gradient fill with outer glow |
+| Text | Shader gradient from white to accent |
+| Icons | Neon colors with subtle glow |
 
 ## License
 
