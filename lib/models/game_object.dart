@@ -5,6 +5,8 @@ enum ShapeType {
   circle,
   star,
   diamond,
+  hexagon,
+  pentagon,
 }
 
 /// Represents a falling object in the game.

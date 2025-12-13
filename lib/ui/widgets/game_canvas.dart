@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../models/models.dart';
-import '../theme/theme.dart';
+import 'animated_background.dart';
 import 'game_painter.dart';
 
 /// The main game canvas widget that renders the game and handles input.
+/// Features an animated starfield background and premium graphics.
 class GameCanvas extends StatelessWidget {
   final List<GameObject> objects;
   final void Function(Offset position)? onTap;
@@ -21,17 +22,7 @@ class GameCanvas extends StatelessWidget {
       onTapDown: (details) {
         onTap?.call(details.localPosition);
       },
-      child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.backgroundGradientTop,
-              AppColors.backgroundGradientBottom,
-            ],
-          ),
-        ),
+      child: AnimatedBackground(
         child: CustomPaint(
           painter: GamePainter(objects: objects),
           child: const SizedBox.expand(),

@@ -228,7 +228,7 @@ class GameEngine {
 
     // Random shape and color
     final shapeType = ShapeType.values[_random.nextInt(ShapeType.values.length)];
-    final colorIndex = _random.nextInt(5); // 5 colors available
+    final colorIndex = _random.nextInt(7); // 7 colors available
 
     final obj = GameObject(
       id: state.getNextObjectId(),
